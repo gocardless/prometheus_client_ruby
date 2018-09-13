@@ -158,15 +158,18 @@ histogram.get({ service: 'users' })
 Summary, similar to histograms, is an accumulator for samples. It captures
 Numeric data and provides an efficient percentile calculation mechanism.
 
+For now, only `sum` and `total` (count of observations) are supported, no actual quantiles.
+
 ```ruby
 summary = Prometheus::Client::Summary.new(:service_latency_seconds, '...')
 
 # record a value
 summary.observe({ service: 'database' }, Benchmark.realtime { service.call() })
 
-# retrieve the current quantile values
-summary.get({ service: 'database' })
-# => { 0.5 => 0.1233122, 0.9 => 3.4323, 0.99 => 5.3428231 }
+# retrieve the current sum and total values
+summary_value = summary.get({ service: 'database' })
+summary_value.sum # => 123.45
+summary_value.count # => 100
 ```
 
 ## Labels
