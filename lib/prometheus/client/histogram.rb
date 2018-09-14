@@ -51,6 +51,7 @@ module Prometheus
         bucket = "+Inf" if bucket.nil?
 
         base_label_set = label_set_for(labels)
+        return unless base_label_set
 
         # This is basically faster than doing `.merge`
         bucket_label_set = base_label_set.dup

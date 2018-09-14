@@ -44,7 +44,7 @@ module Prometheus
       # Returns the value for the given label set
       def get(labels: {})
         label_set = label_set_for(labels)
-        @store.get(labels: label_set)
+        @store.get(labels: label_set) if label_set
       end
 
       def with_labels(labels)

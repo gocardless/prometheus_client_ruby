@@ -14,6 +14,7 @@ module Prometheus
       # Records a given value.
       def observe(value, labels: {})
         base_label_set = label_set_for(labels)
+        return unless base_label_set
 
         @store.synchronize do
           @store.increment(labels: base_label_set.merge(quantile: "count"), by: 1)

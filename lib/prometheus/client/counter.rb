@@ -14,7 +14,7 @@ module Prometheus
         raise ArgumentError, 'increment must be a non-negative number' if by < 0
 
         label_set = label_set_for(labels)
-        @store.increment(labels: label_set, by: by)
+        @store.increment(labels: label_set, by: by) if label_set
       end
     end
   end
