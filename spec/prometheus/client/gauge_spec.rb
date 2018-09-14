@@ -1,20 +1,26 @@
 # encoding: UTF-8
 
+require 'prometheus/client'
 require 'prometheus/client/gauge'
 require 'examples/metric_example'
 
 describe Prometheus::Client::Gauge do
+  # Reset the data store
+  before do
+    Prometheus::Client.config.data_store = Prometheus::Client::DataStores::Synchronized.new
+  end
+
   let(:gauge) { Prometheus::Client::Gauge.new(:foo, 'foo description') }
 
   it_behaves_like Prometheus::Client::Metric do
-    let(:type) { NilClass }
+    let(:type) { Float }
   end
 
   describe '#set' do
     it 'sets a metric value' do
       expect do
         gauge.set({}, 42)
-      end.to change { gauge.get }.from(nil).to(42)
+      end.to change { gauge.get }.from(0).to(42)
     end
 
     it 'sets a metric value for a given label set' do

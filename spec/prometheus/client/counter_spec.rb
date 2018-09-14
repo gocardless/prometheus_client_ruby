@@ -1,9 +1,15 @@
 # encoding: UTF-8
 
+require 'prometheus/client'
 require 'prometheus/client/counter'
 require 'examples/metric_example'
 
 describe Prometheus::Client::Counter do
+  # Reset the data store
+  before do
+    Prometheus::Client.config.data_store = Prometheus::Client::DataStores::Synchronized.new
+  end
+
   let(:counter) { Prometheus::Client::Counter.new(:foo, 'foo description') }
 
   it_behaves_like Prometheus::Client::Metric do
