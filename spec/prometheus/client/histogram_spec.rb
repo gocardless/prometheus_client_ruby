@@ -50,7 +50,7 @@ describe Prometheus::Client::Histogram do
 
     it 'returns a set of buckets values' do
       expect(histogram.get(foo: 'bar')).to eql(
-        2.5 => 0.0, 5 => 2.0, 10 => 3.0, "+Inf" => 4.0, "count" => 4.0, "sum" => 25.2
+        "2.5" => 0.0, "5" => 2.0, "10" => 3.0, "+Inf" => 4.0, "count" => 4.0, "sum" => 25.2
       )
     end
 
@@ -63,7 +63,7 @@ describe Prometheus::Client::Histogram do
 
     it 'uses zero as default value' do
       expect(histogram.get(foo: 'other')).to eql(
-        2.5 => 0.0, 5 => 0.0, 10 => 0.0, "+Inf" => 0.0, "count" => 0.0, "sum" => 0.0
+        "2.5" => 0.0, "5" => 0.0, "10" => 0.0, "+Inf" => 0.0, "count" => 0.0, "sum" => 0.0
       )
     end
   end
@@ -74,8 +74,8 @@ describe Prometheus::Client::Histogram do
       histogram.observe({ status: 'foo' }, 6)
 
       expect(histogram.values).to eql(
-        { status: 'bar' } => { 2.5 => 0.0, 5 => 1.0, 10 => 1.0, "+Inf" => 1.0, "sum" => 3.0 },
-        { status: 'foo' } => { 2.5 => 0.0, 5 => 0.0, 10 => 1.0, "+Inf" => 1.0, "sum" => 6.0 },
+        { status: 'bar' } => { "2.5" => 0.0, "5" => 1.0, "10" => 1.0, "+Inf" => 1.0, "sum" => 3.0 },
+        { status: 'foo' } => { "2.5" => 0.0, "5" => 0.0, "10" => 1.0, "+Inf" => 1.0, "sum" => 6.0 },
       )
     end
   end
