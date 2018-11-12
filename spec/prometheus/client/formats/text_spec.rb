@@ -4,10 +4,26 @@ require 'prometheus/client'
 require 'prometheus/client/registry'
 require 'prometheus/client/formats/text'
 
+require 'prometheus/client/data_stores/single_threaded'
+require 'prometheus/client/data_stores/concurrent_ruby_hash'
+require 'prometheus/client/data_stores/redis'
+require 'prometheus/client/data_stores/mmap_store'
+require 'prometheus/client/data_stores/file_store'
+
+
+SSD_TMP_DIR = "/tmp/prometheus_test_script"
+REDIS_CONNECTION_POOL = ConnectionPool.new(size: 20, timeout: 5) { Redis.new }
+
 describe Prometheus::Client::Formats::Text do
   # Reset the data store
   before do
-    Prometheus::Client.config.data_store = Prometheus::Client::DataStores::Synchronized.new
+    Prometheus::Client.config.data_store =
+      Prometheus::Client::DataStores::Synchronized.new
+      # Prometheus::Client::DataStores::ConcurrentRubyHash.new
+      # Prometheus::Client::DataStores::SingleThreaded.new
+      # Prometheus::Client::DataStores::MmapStore.new(dir: SSD_TMP_DIR)
+      # Prometheus::Client::DataStores::Redis.new(connection_pool: REDIS_CONNECTION_POOL)
+      # Prometheus::Client::DataStores::FileStore.new(dir: SSD_TMP_DIR)
   end
 
   let(:registry) { Prometheus::Client::Registry.new }
