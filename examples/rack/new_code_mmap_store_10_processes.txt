@@ -1,0 +1,65 @@
+# TYPE http_server_requests_total counter
+# HELP http_server_requests_total The total number of HTTP requests handled by the Rack application.
+http_server_requests_total{code="200",method="post",path="/"} 60.0
+http_server_requests_total{code="200",method="get",path="/"} 72.0
+http_server_requests_total{code="404",method="post",path="/"} 18.0
+http_server_requests_total{code="500",method="post",path="/"} 5.0
+http_server_requests_total{code="200",method="delete",path="/"} 64.0
+http_server_requests_total{code="404",method="get",path="/"} 9.0
+http_server_requests_total{code="404",method="delete",path="/"} 15.0
+http_server_requests_total{code="500",method="delete",path="/"} 4.0
+http_server_requests_total{code="500",method="get",path="/"} 3.0
+# TYPE http_server_request_duration_seconds histogram
+# HELP http_server_request_duration_seconds The HTTP response duration of the Rack application.
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.005"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.01"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.025"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.05"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.1"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.25"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="0.5"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="1"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="2.5"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="5"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="10"} 83.0
+http_server_request_duration_seconds_bucket{method="post",path="/",le="+Inf"} 83.0
+http_server_request_duration_seconds_sum{method="post",path="/"} 0.0015070000081323087
+http_server_request_duration_seconds_count{method="post",path="/"} 83.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.005"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.01"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.025"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.05"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.1"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.25"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="0.5"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="1"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="2.5"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="5"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="10"} 84.0
+http_server_request_duration_seconds_bucket{method="get",path="/",le="+Inf"} 84.0
+http_server_request_duration_seconds_sum{method="get",path="/"} 0.0027950002113357186
+http_server_request_duration_seconds_count{method="get",path="/"} 84.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.005"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.01"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.025"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.05"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.1"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.25"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="0.5"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="1"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="2.5"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="5"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="10"} 83.0
+http_server_request_duration_seconds_bucket{method="delete",path="/",le="+Inf"} 83.0
+http_server_request_duration_seconds_sum{method="delete",path="/"} 0.001983999856747687
+http_server_request_duration_seconds_count{method="delete",path="/"} 83.0
+# TYPE http_server_request_duration_summary_seconds summary
+# HELP http_server_request_duration_summary_seconds The HTTP response duration of the Rack application.
+http_server_request_duration_summary_seconds_sum{method="post",path="/"} 0.0015070000081323087
+http_server_request_duration_summary_seconds_count{method="post",path="/"} 83.0
+http_server_request_duration_summary_seconds_sum{method="get",path="/"} 0.0027950002113357186
+http_server_request_duration_summary_seconds_count{method="get",path="/"} 84.0
+http_server_request_duration_summary_seconds_sum{method="delete",path="/"} 0.001983999856747687
+http_server_request_duration_summary_seconds_count{method="delete",path="/"} 83.0
+# TYPE http_server_exceptions_total counter
+# HELP http_server_exceptions_total The total number of exceptions raised by the Rack application.
