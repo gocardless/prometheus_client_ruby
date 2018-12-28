@@ -30,7 +30,7 @@ describe Prometheus::Client::Histogram do
     it 'raise error for le labels' do
       expect do
         histogram.observe({ le: 1 }, 5)
-      end.to raise_error ArgumentError
+      end.to raise_error Prometheus::Client::LabelSetValidator::ReservedLabelError
     end
   end
 

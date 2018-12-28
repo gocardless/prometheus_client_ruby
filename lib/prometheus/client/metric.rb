@@ -11,7 +11,7 @@ module Prometheus
 
       def initialize(name, docstring, base_labels = {})
         @mutex = Mutex.new
-        @validator = LabelSetValidator.new
+        @validator = LabelSetValidator.new(reserved_labels: reserved_labels)
         @values = Hash.new { |hash, key| hash[key] = default }
 
         validate_name(name)
@@ -38,6 +38,10 @@ module Prometheus
       end
 
       private
+
+      def reserved_labels
+        []
+      end
 
       def default
         nil

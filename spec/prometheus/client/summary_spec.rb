@@ -16,6 +16,12 @@ describe Prometheus::Client::Summary do
         summary.observe({}, 5)
       end.to change { summary.get }
     end
+
+    it 'raise error for quantile labels' do
+      expect do
+        summary.observe({ quantile: 1 }, 5)
+      end.to raise_error Prometheus::Client::LabelSetValidator::ReservedLabelError
+    end
   end
 
   describe '#get' do

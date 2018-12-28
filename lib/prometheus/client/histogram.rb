@@ -51,15 +51,15 @@ module Prometheus
       end
 
       def observe(labels, value)
-        if labels[:le]
-          raise ArgumentError, 'Label with name "le" is not permitted'
-        end
-
         label_set = label_set_for(labels)
         synchronize { @values[label_set].observe(value) }
       end
 
       private
+
+      def reserved_labels
+        [:le]
+      end
 
       def default
         Value.new(@buckets)

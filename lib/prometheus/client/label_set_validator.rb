@@ -6,14 +6,17 @@ module Prometheus
     # Prometheus specification.
     class LabelSetValidator
       # TODO: we might allow setting :instance in the future
-      RESERVED_LABELS = [:job, :instance].freeze
+      BASE_RESERVED_LABELS = [:job, :instance].freeze
 
       class LabelSetError < StandardError; end
       class InvalidLabelSetError < LabelSetError; end
       class InvalidLabelError < LabelSetError; end
       class ReservedLabelError < LabelSetError; end
 
-      def initialize
+      attr_reader :reserved_labels
+
+      def initialize(reserved_labels: [])
+        @reserved_labels = BASE_RESERVED_LABELS + reserved_labels
         @validated = {}
       end
 
@@ -62,7 +65,7 @@ module Prometheus
       end
 
       def validate_reserved_key(key)
-        return true unless RESERVED_LABELS.include?(key)
+        return true unless reserved_labels.include?(key)
 
         raise ReservedLabelError, "#{key} is reserved"
       end
