@@ -22,7 +22,7 @@ describe Prometheus::Client::Gauge do
         expect do
           gauge.set({ test: 'value' }, 42)
         end.to change { gauge.get(test: 'value') }.from(nil).to(42)
-      end.to_not change { gauge.get }
+      end.to_not change { gauge.get(test: 'foo') }
     end
 
     context 'given an invalid value' do
@@ -79,7 +79,7 @@ describe Prometheus::Client::Gauge do
       gauge.set(RSpec.current_example.metadata[:labels] || {}, 0)
     end
 
-    it 'increments the gauge' do
+    it 'decrements the gauge' do
       expect do
         gauge.decrement
       end.to change { gauge.get }.by(-1.0)

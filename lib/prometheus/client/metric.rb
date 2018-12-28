@@ -25,9 +25,7 @@ module Prometheus
 
       # Returns the value for the given label set
       def get(labels = {})
-        @validator.valid?(labels)
-
-        @values[labels]
+        @values[label_set_for(labels)]
       end
 
       # Returns all label sets with their values
@@ -62,7 +60,7 @@ module Prometheus
       end
 
       def label_set_for(labels)
-        @validator.validate(labels)
+        @validator.validate(base_labels.merge(labels))
       end
 
       def synchronize

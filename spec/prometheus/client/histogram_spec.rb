@@ -54,7 +54,7 @@ describe Prometheus::Client::Histogram do
     end
 
     it 'uses zero as default value' do
-      expect(histogram.get({})).to eql(2.5 => 0.0, 5 => 0.0, 10 => 0.0)
+      expect(histogram.get(foo: 'other')).to eql(2.5 => 0.0, 5 => 0.0, 10 => 0.0)
     end
   end
 

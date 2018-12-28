@@ -38,7 +38,7 @@ describe Prometheus::Client::Summary do
     end
 
     it 'uses nil as default value' do
-      expect(summary.get({})).to eql(0.5 => nil, 0.9 => nil, 0.99 => nil)
+      expect(summary.get(foo: 'other')).to eql(0.5 => nil, 0.9 => nil, 0.99 => nil)
     end
   end
 

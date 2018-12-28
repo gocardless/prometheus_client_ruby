@@ -22,7 +22,7 @@ describe Prometheus::Client::Counter do
         expect do
           counter.increment(test: 'label')
         end.to change { counter.get(test: 'label') }.by(1.0)
-      end.to_not change { counter.get }
+      end.to_not change { counter.get(test: 'foo') }
     end
 
     it 'increments the counter by a given value' do

@@ -169,6 +169,30 @@ summary.get({ service: 'database' })
 # => { 0.5 => 0.1233122, 0.9 => 3.4323, 0.99 => 5.3428231 }
 ```
 
+## Labels
+
+All metrics can have labels, allowing grouping of related time series.
+
+Labels are an extremely powerful feature, but one that must be used with care.
+Refer to the best practices on [naming](https://prometheus.io/docs/practices/naming/) and 
+[labels](https://prometheus.io/docs/practices/instrumentation/#use-labels).
+
+Most importantly, avoid labels that can have a large number of possible values (high 
+cardinality). For example, an HTTP Status Code is a good label. A User ID is **not**.
+
+Labels are specified optionally when updating metrics, as a hash of `label_name => value`.
+Refer to [the Prometheus documentation](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels) 
+as to what's a valid `label_name`.
+
+Once a metric is observed/incremented with a certain set of labels, every successive 
+observation needs to have the same label "keys". If different keys are specified as 
+labels, an exception will be raised.
+
+### Base Label Values
+
+You can also "pre-set" some of these label values, if they'll always be the same, so you don't
+need to specify them every time, using the `base_labels` parameter.
+
 ## Tests
 
 Install necessary development gems with `bundle install` and run tests with
