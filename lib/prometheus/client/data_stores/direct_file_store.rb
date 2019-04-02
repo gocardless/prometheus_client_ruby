@@ -196,6 +196,8 @@ module Prometheus
             open_file(filename, readonly)
             @used = @f.read(4).unpack('l')[0] if @capacity > 0
 
+            return if readonly
+
             if @used > 0
               # File already has data. Read the existing values
               with_file_lock do
