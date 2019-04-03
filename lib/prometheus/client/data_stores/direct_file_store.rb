@@ -196,8 +196,6 @@ module Prometheus
             open_file(filename, readonly)
             @used = @f.read(4).unpack('l')[0] if @capacity > 0
 
-            return if readonly
-
             if @used > 0
               # File already has data. Read the existing values
               with_file_lock do
@@ -215,10 +213,14 @@ module Prometheus
             end
           end
 
-          # Yield (key, value, pos). No locking is performed.
+          # Return a list of key-value pairs
           def all_values
             with_file_lock do
-              read_all_values.map { |k, v, p| [k, v] }
+              @positions.map do |key, pos|
+                @f.seek(pos)
+                value = @f.read(8).unpack('d')[0]
+                [key, value]
+              end
             end
           end
 
@@ -311,5 +313,3 @@ module Prometheus
     end
   end
 end
-
-
