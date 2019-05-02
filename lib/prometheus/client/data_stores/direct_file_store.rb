@@ -198,11 +198,7 @@ module Prometheus
 
             if @used > 0
               # File already has data. Read the existing values
-              with_file_lock do
-                read_all_values do |key, pos|
-                  @positions[key] = pos
-                end
-              end
+              with_file_lock { read_all_values }
             else
               # File is empty. Init the `used` counter, if we're in write mode
               if !readonly
@@ -296,14 +292,14 @@ module Prometheus
             @positions[key] = @used - 8
           end
 
-          # Yield (key, pos). No locking is performed.
+          # Read position of all keys. No locking is performed.
           def read_all_values
             @f.seek(8)
             while @f.pos < @used
               padded_len = @f.read(4).unpack('l')[0]
-              encoded = @f.read(padded_len).unpack("A#{padded_len}")[0]
+              key = @f.read(padded_len).unpack("A#{padded_len}")[0].strip
+              @positions[key] = @f.pos
               @f.seek(8, :CUR)
-              yield encoded.strip, @f.pos-8
             end
           end
         end
