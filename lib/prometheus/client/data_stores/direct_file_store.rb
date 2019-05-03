@@ -198,7 +198,7 @@ module Prometheus
 
             if @used > 0
               # File already has data. Read the existing values
-              with_file_lock { read_all_values }
+              with_file_lock { populate_positions }
             else
               # File is empty. Init the `used` counter, if we're in write mode
               if !readonly
@@ -293,7 +293,7 @@ module Prometheus
           end
 
           # Read position of all keys. No locking is performed.
-          def read_all_values
+          def populate_positions
             @f.seek(8)
             while @f.pos < @used
               padded_len = @f.read(4).unpack('l')[0]
